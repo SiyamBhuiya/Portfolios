@@ -1,11 +1,11 @@
 import { useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
-import { SITE, projects, tools } from './data.js'
+import { SITE, PROFILE, projects, tools } from './data.js'
+import Workflows from './Workflow.jsx'
 import homeCover from './assets/hero-cover.jpg'
 import workCover from './assets/cover-work.jpg'
 import aboutCover from './assets/cover-about.jpg'
 import contactCover from './assets/cover-contact.jpg'
-import Workflows from './Workflow.jsx'
 import art1 from './assets/art-1.jpg'
 import art2 from './assets/art-2.jpg'
 import art3 from './assets/art-3.jpg'
@@ -27,10 +27,10 @@ function T({ tag: Tag = 'span', s = 2, c, ls, className = '', style, children })
 function CV() {
   return (
     <section><div className="wrap cv">
-      <div><h2>My CV</h2><p className="lead">My experience, tools and client work in one PDF. Read it in your browser or save a copy.</p></div>
+      <div><h2>My CV</h2><p className="lead">My experience, skills and projects in one PDF. Read it in your browser or save a copy.</p></div>
       <div className="btns">
         <a className="btn main" href={SITE.cv} target="_blank" rel="noopener">View CV</a>
-        <a className="btn" href={SITE.cv} download="Siyam-CV.pdf">Download CV</a>
+        <a className="btn" href={SITE.cv} download={SITE.cv}>Download CV</a>
       </div>
     </div></section>
   )
@@ -67,18 +67,18 @@ export function Home() {
         <div className="cover in">
           <img src={homeCover} alt="3D illustration of a person on a laptop surrounded by floating icons and a planet" />
           <span className="t c-tl">{SITE.name}</span>
-          <span className="t c-tr">Open for new projects</span>
-          <span className="t c-small">WhatsApp / CRM / AI workflows</span>
-          <span className="t c-role">Freelance n8n developer</span>
+          <span className="t c-tr">{SITE.location}, {SITE.country}</span>
+          <span className="t c-small">n8n / Make.com / CRM / AI</span>
+          <span className="t c-role">{SITE.role}</span>
           <h1 className="t c-title">n8n automation</h1>
           <span className="t c-label">Portfolio</span>
-          <div className="t c-cta btns"><Link className="btn main" to="/work">See the work</Link><Link className="btn" to="/contact">Start a project</Link></div>
+          <div className="t c-cta btns"><Link className="btn main" to="/work">See the work</Link><Link className="btn" to="/contact">Get in touch</Link></div>
           <span className="t c-bl">Automation / n8n</span>
         </div>
         <div className="cover-m">
           <h1>Automations that run the business<i className="dot o" /><i className="dot b" /></h1>
-          <p className="lead">I'm a freelance n8n developer. I build WhatsApp, CRM and AI workflows for clients around the world, and they run in production every day.</p>
-          <div className="btns"><Link className="btn main" to="/work">See the work</Link><Link className="btn" to="/contact">Start a project</Link></div>
+          <p className="lead">I'm {SITE.name}, a junior automation engineer in {SITE.location}. I build n8n and Make.com workflows that connect CRMs, Shopify, Notion and ClickUp, and add AI where it saves real work.</p>
+          <div className="btns"><Link className="btn main" to="/work">See the work</Link><Link className="btn" to="/contact">Get in touch</Link></div>
         </div>
       </div>
       <section><div className="wrap">
@@ -100,12 +100,12 @@ export function Work() {
     <>
       <div className="wrap">
         <Cover src={workCover} alt="Dark cover with a large gradient sphere" pos="75% 50%">
-          <T s={2.1} ls=".05em" style={{ left: '6.4%', top: '9%' }}>{projects.length} client projects</T>
+          <T s={2.1} ls=".05em" style={{ left: '6.4%', top: '9%' }}>{projects.length} projects</T>
           <T tag="h1" s={8.6} className="hd" style={{ left: '6.4%', top: '31%' }}>Selected work</T>
           <T s={3.2} ls=".08em" style={{ left: '6.4%', top: '51%' }}>Built for real clients</T>
-          <T s={2.4} className="hd" style={{ left: '6.4%', bottom: '4.6%' }}>Siyam / n8n</T>
+          <T s={2.4} className="hd" style={{ left: '6.4%', bottom: '4.6%' }}>{SITE.name} / n8n</T>
         </Cover>
-        <div className="cover-m"><h1 className="page">Selected work</h1><p className="lead">Client automations I have built and kept running. Open one to see how it works.</p></div>
+        <div className="cover-m"><h1 className="page">Selected work</h1><p className="lead">Automations I have built and kept running. Open one to see how it works.</p></div>
       </div>
       <section className="first-section"><div className="wrap"><Rows list={projects} /></div></section>
     </>
@@ -143,26 +143,53 @@ export function Project() {
 }
 
 export function About() {
+  const c = PROFILE.certification
   return (
     <>
       <div className="wrap">
         <Cover src={aboutCover} alt="Frosted glass card with floating blue spheres" pos="78% 50%">
-          <T s={1.6} c="#2b2d3a" ls=".12em" style={{ left: '9.5%', top: '16.1%' }}>Freelance / n8n / WhatsApp / AI</T>
+          <T s={1.6} c="#2b2d3a" ls=".12em" style={{ left: '9.5%', top: '16.1%' }}>n8n / Make.com / Python / AI</T>
           <T s={3.2} c="#3a3a45" className="hd" style={{ left: '12.5%', top: '28.6%' }}>Based in {SITE.location}</T>
           <T tag="h1" s={8.5} c="#0b0d1a" className="hd" style={{ left: '12.5%', top: '39.6%' }}>About me</T>
-          <T s={1.7} c="#0b0d1a" style={{ left: '12.5%', top: '64.2%' }}>n8n automation developer</T>
+          <T s={1.7} c="#0b0d1a" style={{ left: '12.5%', top: '64.2%' }}>{SITE.role}</T>
           <Link to="/work" className="t pill">My work</Link>
         </Cover>
         <div className="cover-m"><h1 className="page">About me</h1></div>
       </div>
       <section className="first-section"><div className="wrap narrow">
-        <p className="lead">I'm {SITE.name}, a freelance n8n automation developer in {SITE.location}. I work with businesses in several countries, and my day is spent making their tools talk to each other.</p>
-        <h2>What I build</h2>
-        <p>Production-grade n8n workflows: WhatsApp chatbots, CRM and database syncs, AI assistants, and pipelines that read documents. Most connect three or four tools, such as WhatsApp, Notion, Odoo, Shopify, HubSpot or Airtable.</p>
-        <h2>How I work</h2>
-        <p>I build for the day things go wrong. That means handling pagination, rate limits and execution time limits up front, adding error handling to each node, and writing guides so your own staff can maintain what I hand over.</p>
-        <h2>Tools I connect</h2>
-        <div className="tools">{tools.map(t => <span key={t}>{t}</span>)}</div>
+        <p className="lead">{PROFILE.summary[0]}</p>
+        <p>{PROFILE.summary[1]}</p>
+        <h2>Experience</h2>
+        {PROFILE.experience.map(j => (
+          <div className="job" key={j.role}>
+            <h3>{j.role}</h3>
+            <p className="meta">{j.org}, {j.period}</p>
+            <ul>{j.points.map(pt => <li key={pt}>{pt}</li>)}</ul>
+          </div>
+        ))}
+        <h2>Skills</h2>
+        <dl className="skills">{PROFILE.skills.map(([k, v]) => <div key={k}><dt>{k}</dt><dd>{v}</dd></div>)}</dl>
+        <h2>Education</h2>
+        {PROFILE.education.map(e => (
+          <div className="item" key={e.title}><h3>{e.title}</h3><p className="meta">{e.org}, {e.period}. {e.note}</p></div>
+        ))}
+        <h2>Certification</h2>
+        <div className="item">
+          <h3>{c.name}</h3>
+          <p className="meta">{c.org}, {c.date}</p>
+          <p>{c.note}</p>
+          {c.url && <p><a href={c.url} target="_blank" rel="noopener">View certificate</a></p>}
+        </div>
+        <h2>Other projects</h2>
+        {PROFILE.projects.map(p => (
+          <div className="item" key={p.name}>
+            <h3>{p.url ? <a href={p.url} target="_blank" rel="noopener">{p.name}</a> : p.name}</h3>
+            <p>{p.desc}</p>
+            <p className="meta">{p.tags}</p>
+          </div>
+        ))}
+        <h2>Languages</h2>
+        <div className="tools">{PROFILE.languages.map(l => <span key={l}>{l}</span>)}</div>
       </div></section>
       <CV />
     </>
@@ -181,7 +208,7 @@ export function Contact() {
     <>
       <div className="wrap">
         <Cover src={contactCover} alt="Soft green and blue gradient cover" pos="50% 50%">
-          <T s={1.5} c="#555" style={{ left: '3.8%', top: '6.6%' }}>n8n / WhatsApp / CRM / AI</T>
+          <T s={1.5} c="#555" style={{ left: '3.8%', top: '6.6%' }}>n8n / Make.com / CRM / AI</T>
           <T tag="h1" s={8} c="#2f2f2f" className="hd" style={{ left: '50%', top: '50%', transform: 'translate(-50%,-50%)' }}>Let's talk</T>
           <T s={2} c="#555" style={{ left: '50%', top: '63%', transform: 'translateX(-50%)' }}>Tell me what to automate</T>
           <T s={1.4} c="#666" style={{ left: '3.8%', top: '90.2%' }}>Email</T>
@@ -199,7 +226,7 @@ export function Contact() {
           <label>What should be automated?<textarea required rows="5" value={f.message} onChange={set('message')} /></label>
           <button className="btn main" type="submit">Open email to send</button>
         </form>
-        <p className="note">This opens your email app with the message filled in. You can also write to <a href={`mailto:${SITE.email}`}>{SITE.email}</a>.</p>
+        <p className="note">This opens your email app with the message filled in. You can also write to <a href={`mailto:${SITE.email}`}>{SITE.email}</a>, or find me on <a href={SITE.linkedin} target="_blank" rel="noopener">LinkedIn</a> and <a href={SITE.github} target="_blank" rel="noopener">GitHub</a>.</p>
       </div></section>
     </>
   )
