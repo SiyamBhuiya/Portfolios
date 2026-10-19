@@ -7,7 +7,7 @@ export const SITE = {
   country: "Bangladesh",
   email: "siyambhuiya44@gmail.com",
   github: "https://github.com/SiyamBhuiya",
-  linkedin: "https://www.linkedin.com/in/siyam-bhuiyan",
+  linkedin: "https://bd.linkedin.com/in/md-siyam-bhuiyan-work",
   cv: "MD_Siyam_Bhuiyan_CV.pdf", // save the PDF in /public with this exact name
 }
 
