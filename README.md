@@ -21,7 +21,7 @@ npm run build
 
 The site deploys to GitHub Pages automatically when changes are pushed to `main`.
 
-## Editing content
+## Editing
 
 - Profile, projects and workflow list: `src/data.js`
 - Pages: `src/pages.jsx`
